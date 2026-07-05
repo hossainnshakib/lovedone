@@ -1,6 +1,6 @@
 .main {
   min-height: 100vh;
-  background: var(--bg);
+  background: var(--paper);
 }
 
 .loading {
@@ -8,14 +8,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg);
+  background: var(--paper);
 }
 
 .loadingSpinner {
   width: 40px;
   height: 40px;
-  border: 2px solid var(--card);
-  border-top-color: var(--accent);
+  border: 2px solid var(--line);
+  border-top-color: var(--ochre);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -24,32 +24,67 @@
   to { transform: rotate(360deg); }
 }
 
-.photoRoll {
-  position: relative;
-  padding: 2rem 1rem 2rem 1rem;
-  max-width: 900px;
+.header {
+  max-width: 1100px;
   margin: 0 auto;
+  padding: 9vh 24px 6vh;
+  text-align: center;
 }
 
-.spine {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  background: linear-gradient(to bottom, transparent, var(--accent) 5%, var(--accent) 95%, transparent);
-  opacity: 0.5;
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ochre);
+  margin-bottom: 20px;
 }
 
-@media (max-width: 639px) {
-  .spine {
-    left: 11px;
-    transform: none;
-    width: 2px;
-  }
+.title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(32px, 5.5vw, 56px);
+  line-height: 1.1;
+  margin-bottom: 16px;
+  color: var(--ink);
+}
 
-  .photoRoll {
-    padding: 2rem 1rem 2rem 1rem;
-  }
+.title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--forest);
+}
+
+.deck {
+  font-size: 16px;
+  color: var(--ink-soft);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.footer {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 8vh 24px 12vh;
+  text-align: center;
+  border-top: 1px solid var(--line);
+}
+
+.footer .eyebrow {
+  margin-bottom: 18px;
+}
+
+.footerText {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 3vw, 22px);
+  line-height: 1.7;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.footerSign {
+  margin-top: 20px;
+  font-style: italic;
+  color: var(--forest);
 }

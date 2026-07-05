@@ -1,0 +1,77 @@
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(33, 29, 25, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 100;
+}
+
+.lightbox.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.inner {
+  max-width: 640px;
+  width: 100%;
+}
+
+.inner img {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 2px;
+  background: #000;
+}
+
+.caption {
+  color: var(--paper);
+  text-align: center;
+  margin-top: 20px;
+}
+
+.date {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(247, 244, 238, 0.6);
+  margin-bottom: 8px;
+}
+
+.text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--paper);
+}
+
+.closeBtn {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  background: none;
+  border: none;
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  text-transform: uppercase;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.closeBtn:hover {
+  opacity: 1;
+}

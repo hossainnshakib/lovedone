@@ -2,10 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Photo, Settings } from '@/lib/types';
-import LockScreen from '@/components/LockScreen';
-import IntroScreen from '@/components/IntroScreen';
-import PhotoCard from '@/components/PhotoCard';
-import ClosingScreen from '@/components/ClosingScreen';
+import GalleryGrid from '@/components/GalleryGrid';
 import styles from './page.module.css';
 
 interface PublicRevealClientProps {
@@ -14,27 +11,14 @@ interface PublicRevealClientProps {
 }
 
 export default function PublicRevealClient({ photos, settings }: PublicRevealClientProps) {
-  const [isUnlocked, setIsUnlocked] = useState(false);
-  const [checkingAuth, setCheckingAuth] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    checkAuth();
+    const timer = setTimeout(() => setLoading(false), 100);
+    return () => clearTimeout(timer);
   }, []);
 
-  const checkAuth = async () => {
-    try {
-      const res = await fetch('/api/verify-pin');
-      const data = await res.json();
-      if (data.verified) {
-        setIsUnlocked(true);
-      }
-    } catch {
-    } finally {
-      setCheckingAuth(false);
-    }
-  };
-
-  if (checkingAuth) {
+  if (loading) {
     return (
       <div className={styles.loading}>
         <div className={styles.loadingSpinner} />
@@ -42,77 +26,29 @@ export default function PublicRevealClient({ photos, settings }: PublicRevealCli
     );
   }
 
-  if (!isUnlocked) {
-    return <LockScreen onUnlock={() => setIsUnlocked(true)} />;
-  }
-
-  const displayPhotos = photos.length > 0 ? photos : PLACEHOLDER_PHOTOS;
+  const pullQuote = photos[3]?.caption || photos[0]?.caption || 'Some moments just stay with you.';
 
   return (
     <main className={styles.main}>
-      <IntroScreen
-        recipientLabel={settings.recipient_label}
-        introMessage={settings.intro_message}
-      />
+      <header className={styles.header}>
+        <div className={styles.eyebrow}>A small collection</div>
+        <h1 className={styles.title}>
+          {settings.recipient_label.split(' ').map((word, i) =>
+            i === settings.recipient_label.split(' ').length - 1
+              ? <em key={i}>{word}</em>
+              : word + ' '
+          )}
+        </h1>
+        <p className={styles.deck}>{settings.intro_message}</p>
+      </header>
 
-      <div className={styles.photoRoll}>
-        <div className={styles.spine} />
-        {displayPhotos.map((photo, index) => (
-          <PhotoCard
-            key={photo.id || index}
-            imageUrl={photo.image_url}
-            caption={photo.caption}
-            photoDate={photo.photo_date}
-            side={index % 2 === 0 ? 'left' : 'right'}
-            index={index}
-          />
-        ))}
-      </div>
+      <GalleryGrid photos={photos} pullQuote={pullQuote} />
 
-      <ClosingScreen message={settings.closing_message} />
+      <footer className={styles.footer}>
+        <div className={styles.eyebrow}>Before you go</div>
+        <p className={styles.footerText}>{settings.closing_message}</p>
+        <div className={styles.footerSign}>— made with care</div>
+      </footer>
     </main>
   );
 }
-
-const PLACEHOLDER_PHOTOS: Photo[] = [
-  {
-    id: '1',
-    storage_path: '',
-    image_url: 'https://picsum.photos/400/400?random=1',
-    context_note: null,
-    caption: 'A moment captured in time.',
-    photo_date: '2024-01-15',
-    order_index: 0,
-    created_at: new Date().toISOString(),
-  },
-  {
-    id: '2',
-    storage_path: '',
-    image_url: 'https://picsum.photos/400/400?random=2',
-    context_note: null,
-    caption: 'Something worth remembering.',
-    photo_date: '2024-02-20',
-    order_index: 1,
-    created_at: new Date().toISOString(),
-  },
-  {
-    id: '3',
-    storage_path: '',
-    image_url: 'https://picsum.photos/400/400?random=3',
-    context_note: null,
-    caption: 'The view from a quiet afternoon.',
-    photo_date: '2024-03-10',
-    order_index: 2,
-    created_at: new Date().toISOString(),
-  },
-  {
-    id: '4',
-    storage_path: '',
-    image_url: 'https://picsum.photos/400/400?random=4',
-    context_note: null,
-    caption: 'Caption goes here',
-    photo_date: '2024-04-05',
-    order_index: 3,
-    created_at: new Date().toISOString(),
-  },
-];
