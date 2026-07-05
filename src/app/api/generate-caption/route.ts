@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Anthropic from '@anthropic-ai/sdk';
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY!,
-});
-
 export async function POST(request: NextRequest) {
   try {
     const { imageUrl, contextNote } = await request.json();
@@ -12,6 +8,13 @@ export async function POST(request: NextRequest) {
     if (!imageUrl) {
       return NextResponse.json({ error: 'Image URL is required' }, { status: 400 });
     }
+
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+    if (!apiKey) {
+      return NextResponse.json({ error: 'Anthropic API key not configured' }, { status: 500 });
+    }
+
+    const anthropic = new Anthropic({ apiKey });
 
     const imageResponse = await fetch(imageUrl);
     const arrayBuffer = await imageResponse.arrayBuffer();
