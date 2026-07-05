@@ -1,6 +1,7 @@
 .main {
   min-height: 100vh;
-  background: var(--paper);
+  background: var(--ink-navy);
+  padding: 0 1rem 8vh;
 }
 
 .loading {
@@ -8,14 +9,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--paper);
+  background: var(--ink-navy);
 }
 
 .loadingSpinner {
   width: 40px;
   height: 40px;
-  border: 2px solid var(--line);
-  border-top-color: var(--ochre);
+  border: 2px solid rgba(255,255,255,0.1);
+  border-top-color: var(--washi-mustard);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -25,66 +26,71 @@
 }
 
 .header {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 9vh 24px 6vh;
   text-align: center;
+  padding: 10vh 1.5rem 6vh;
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.25em;
+  font-size: 10px;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--ochre);
-  margin-bottom: 20px;
+  color: rgba(251,246,236,0.35);
+  margin-bottom: 1rem;
 }
 
 .title {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(32px, 5.5vw, 56px);
-  line-height: 1.1;
-  margin-bottom: 16px;
-  color: var(--ink);
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  line-height: 1.15;
+  color: var(--paper);
+  margin-bottom: 1.25rem;
 }
 
 .title em {
   font-style: italic;
   font-weight: 400;
-  color: var(--forest);
+  color: var(--washi-rose);
 }
 
 .deck {
-  font-size: 16px;
-  color: var(--ink-soft);
-  max-width: 480px;
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+  color: rgba(251,246,236,0.55);
+  max-width: 440px;
   margin: 0 auto;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 .footer {
+  text-align: center;
+  padding: 10vh 1.5rem 0;
   max-width: 600px;
   margin: 0 auto;
-  padding: 8vh 24px 12vh;
-  text-align: center;
-  border-top: 1px solid var(--line);
 }
 
-.footer .eyebrow {
-  margin-bottom: 18px;
+.footerDivider {
+  width: 40px;
+  height: 1px;
+  background: rgba(251,246,236,0.2);
+  margin: 0 auto 3rem;
 }
 
 .footerText {
-  font-family: var(--font-display);
-  font-size: clamp(18px, 3vw, 22px);
-  line-height: 1.7;
-  color: var(--ink);
-  margin-bottom: 8px;
+  font-family: var(--font-hand);
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  line-height: 1.8;
+  color: rgba(251,246,236,0.7);
+  margin-bottom: 0.5rem;
 }
 
 .footerSign {
-  margin-top: 20px;
+  font-family: var(--font-hand);
   font-style: italic;
-  color: var(--forest);
+  font-size: 1rem;
+  color: var(--washi-mustard);
+  margin-top: 1.5rem;
 }

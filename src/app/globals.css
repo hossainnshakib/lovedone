@@ -1,16 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,400&family=Space+Mono:wght@400;700&display=swap');
 
 :root {
-  --paper: #F7F4EE;
-  --paper-alt: #EFEAE0;
-  --ink: #211D19;
-  --ink-soft: #5B564D;
-  --forest: #3B5D50;
-  --ochre: #B9902F;
-  --line: rgba(33, 29, 25, 0.10);
+  --ink-navy: #202A38;
+  --paper: #FBF6EC;
+  --washi-rose: #D98C93;
+  --washi-mustard: #E3A857;
+  --charcoal: #2A2420;
   --font-display: 'Fraunces', serif;
-  --font-body: 'Work Sans', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-hand: 'Caveat', cursive;
+  --font-mono: 'Space Mono', monospace;
 }
 
 *, *::before, *::after {
@@ -24,34 +22,33 @@ html {
 }
 
 body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-body);
+  background: var(--ink-navy);
+  color: var(--charcoal);
+  font-family: var(--font-hand);
   line-height: 1.6;
   min-height: 100vh;
 }
 
 ::selection {
-  background: var(--ochre);
-  color: var(--paper);
+  background: var(--washi-mustard);
+  color: var(--charcoal);
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--paper);
+  background: var(--ink-navy);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--ink-soft);
-  border-radius: 4px;
-  opacity: 0.5;
+  background: #3a4a5c;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--ink);
+  background: #4a5a6c;
 }
 
 button {
