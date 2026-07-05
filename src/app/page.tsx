@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase';
-import { Photo, Settings } from '@/lib/types';
-import { PIN_COOKIE_NAME } from '@/lib/constants';
+import { Settings } from '@/lib/types';
 import PublicRevealClient from './PublicRevealClient';
 
 const DEFAULT_SETTINGS: Settings = {
@@ -27,16 +26,6 @@ async function getData() {
 }
 
 export default async function PublicReveal() {
-  const cookieStore = await cookies();
-  cookieStore.delete(PIN_COOKIE_NAME);
-  const isVerified = cookieStore.get(PIN_COOKIE_NAME)?.value === 'verified';
-
-  if (!isVerified) {
-    return (
-      <PublicRevealClient photos={[]} settings={DEFAULT_SETTINGS} isVerified={false} />
-    );
-  }
-
   const { photos, settings } = await getData();
-  return <PublicRevealClient photos={photos} settings={settings} isVerified={true} />;
+  return <PublicRevealClient photos={photos} settings={settings} isVerified={false} />;
 }
