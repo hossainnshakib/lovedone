@@ -14,6 +14,15 @@
   transform: translateY(0);
 }
 
+.frame.inView:hover .print {
+  box-shadow: 0 20px 44px rgba(0,0,0,0.65), 0 0 0 1px rgba(232,112,63,0.08);
+  transform: scale(1.015) rotate(0deg) !important;
+}
+
+.frame.inView:hover .photo {
+  filter: grayscale(0) brightness(1.02) contrast(1);
+}
+
 .frame.sizeLarge {
   align-self: center;
 }

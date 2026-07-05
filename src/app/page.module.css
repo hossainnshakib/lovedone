@@ -57,21 +57,21 @@
 .wrap {
   position: relative;
   z-index: 2;
-  max-width: 900px;
+  max-width: 860px;
   margin: 0 auto;
   padding: 0 24px;
 }
 
 /* ---------- Hero ---------- */
 .hero {
-  min-height: 92vh;
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 22px;
-  padding-top: 5vh;
+  gap: 16px;
+  padding: 60px 0 40px;
 }
 
 .pilot {
@@ -79,30 +79,35 @@
   height: 8px;
   border-radius: 50%;
   background: var(--safelight-bright);
-  box-shadow: 0 0 12px 4px rgba(232,112,63,0.65);
-  animation: pulse 2.4s ease-in-out infinite;
+  box-shadow: 0 0 16px 6px rgba(232,112,63,0.5);
+  animation: pilotPulse 2.5s ease-in-out infinite;
+  opacity: 0;
+  animation: pilotFadeIn 1s ease-out 0.2s forwards, pilotPulse 2.5s ease-in-out 1.2s infinite;
 }
 
-@keyframes pulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+@keyframes pilotFadeIn {
+  to { opacity: 1; }
 }
 
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-  color: var(--ghost);
+@keyframes pilotPulse {
+  0%, 100% { opacity: 0.4; box-shadow: 0 0 10px 3px rgba(232,112,63,0.4); }
+  50% { opacity: 1; box-shadow: 0 0 20px 8px rgba(232,112,63,0.6); }
 }
 
 .title {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(46px, 9vw, 84px);
+  font-size: clamp(36px, 7vw, 64px);
   margin: 0;
   color: var(--print);
   letter-spacing: -0.01em;
+  opacity: 0;
+  animation: heroFadeUp 0.8s ease-out 0.4s forwards;
+}
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .title em {
@@ -113,14 +118,16 @@
 
 .heroSub {
   font-family: var(--font-hand), "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
-  font-size: 24px;
+  font-size: 18px;
   color: var(--ghost);
-  max-width: 380px;
-  line-height: 1.4;
+  max-width: 360px;
+  line-height: 1.5;
+  opacity: 0;
+  animation: heroFadeUp 0.8s ease-out 0.65s forwards;
 }
 
 .scrollCue {
-  margin-top: 30px;
+  margin-top: 20px;
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.2em;
@@ -130,24 +137,26 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  opacity: 0;
+  animation: heroFadeUp 0.8s ease-out 0.9s forwards;
 }
 
 .scrollLine {
   width: 1px;
-  height: 34px;
+  height: 32px;
   background: linear-gradient(var(--ghost), transparent);
-  animation: drip 2s ease-in-out infinite;
+  animation: drip 2.2s ease-in-out infinite;
 }
 
 @keyframes drip {
-  0% { transform: scaleY(0.4); opacity: 0.3; }
-  50% { transform: scaleY(1); opacity: 1; }
-  100% { transform: scaleY(0.4); opacity: 0.3; }
+  0% { transform: scaleY(0.3); opacity: 0.2; }
+  50% { transform: scaleY(1); opacity: 0.8; }
+  100% { transform: scaleY(0.3); opacity: 0.2; }
 }
 
-/* ---------- Reel / Photo Frames ---------- */
+/* ---------- Reel ---------- */
 .reel {
-  padding: 40px 0 120px;
+  padding: 20px 0 100px;
   display: flex;
   flex-direction: column;
 }
@@ -155,48 +164,55 @@
 /* ---------- Footer ---------- */
 .footer {
   text-align: center;
-  padding: 60px 20px 110px;
+  padding: 50px 20px 100px;
   position: relative;
   z-index: 2;
 }
 
 .bulb {
-  width: 22px;
-  height: 22px;
-  margin: 0 auto 18px;
-  opacity: 0.5;
+  width: 20px;
+  height: 20px;
+  margin: 0 auto 14px;
+  opacity: 0.4;
   color: var(--print);
+  animation: bulbGlow 3s ease-in-out infinite;
+}
+
+@keyframes bulbGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
 }
 
 .footerLine {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 500;
-  font-size: 19px;
+  font-size: 17px;
   color: var(--print);
-  max-width: 380px;
-  margin: 0 auto 12px;
+  max-width: 360px;
+  margin: 0 auto 10px;
   line-height: 1.5;
 }
 
 .footerSign {
   font-family: var(--font-hand), "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
-  font-size: 19px;
+  font-size: 16px;
   color: var(--ghost);
 }
 
 @media (max-width: 640px) {
   .hero {
-    min-height: 85vh;
-    gap: 18px;
+    min-height: 42vh;
+    padding: 48px 0 32px;
+    gap: 12px;
   }
 
   .heroSub {
-    font-size: 20px;
-    padding: 0 1rem;
+    font-size: 16px;
+    padding: 0 0.5rem;
   }
 
   .reel {
-    padding: 30px 0 80px;
+    padding: 16px 0 70px;
   }
 }

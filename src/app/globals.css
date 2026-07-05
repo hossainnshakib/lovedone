@@ -12,6 +12,15 @@
   --font-display: 'Fraunces', serif;
   --font-hand: 'DM Sans', sans-serif;
   --font-mono: 'Courier Prime', monospace;
+
+  /* Lock screen */
+  --bg: #0d0a08;
+  --card: #1a1512;
+  --card-light: #2a2320;
+  --text: #EDE6D5;
+  --text-muted: rgba(237,230,213,0.45);
+  --accent: #E8703F;
+  --secondary: #B23A2E;
 }
 
 *, *::before, *::after {
