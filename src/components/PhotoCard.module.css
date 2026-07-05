@@ -1,38 +1,60 @@
-.card {
+.timelineEntry {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  margin: 4rem 0;
+  align-items: flex-start;
+  margin: 3rem 0;
   opacity: 0;
-  filter: blur(10px) saturate(0.3);
-  transform: scale(0.95);
+  filter: blur(8px) saturate(0.3);
+  transform: translateY(20px) scale(0.97);
   transition: opacity 0.8s ease-out, filter 0.8s ease-out, transform 0.8s ease-out;
 }
 
-.card.revealed {
+.timelineEntry.revealed {
   opacity: 1;
   filter: blur(0) saturate(1);
-  transform: scale(1);
+  transform: translateY(0) scale(1);
+}
+
+.connector {
+  position: absolute;
+  top: 2rem;
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.node {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 2px solid var(--accent);
+  transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
+}
+
+.timelineEntry.revealed .node {
+  transform: scale(1.2);
+  box-shadow: 0 0 12px var(--accent);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 380px;
 }
 
 .polaroid {
   background: #FAFAFA;
-  padding: 1rem 1rem 3rem 1rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  padding: 0.75rem 0.75rem 2.5rem 0.75rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
   position: relative;
 }
 
 .imageContainer {
-  width: 88vw;
-  max-width: 420px;
+  width: 100%;
   overflow: hidden;
-}
-
-@media (min-width: 640px) {
-  .imageContainer {
-    width: 320px;
-  }
 }
 
 .image {
@@ -43,30 +65,107 @@
 
 .dateStamp {
   position: absolute;
-  bottom: 1rem;
+  bottom: 0.75rem;
   left: 0;
   right: 0;
   text-align: center;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   color: #333;
   letter-spacing: 0.05em;
-}
-
-.left .polaroid {
-  transform: rotate(-3deg);
-}
-
-.right .polaroid {
-  transform: rotate(3deg);
 }
 
 .caption {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
-  text-align: center;
-  max-width: 300px;
   line-height: 1.5;
+  padding: 0 0.25rem;
+}
+
+@media (min-width: 640px) {
+  .timelineEntry {
+    margin: 4rem 0;
+  }
+
+  .timelineEntry.left {
+    flex-direction: row;
+  }
+
+  .timelineEntry.right {
+    flex-direction: row-reverse;
+  }
+
+  .timelineEntry.left .connector {
+    left: 50%;
+    margin-left: -20px;
+  }
+
+  .timelineEntry.right .connector {
+    right: 50%;
+    margin-right: -20px;
+  }
+
+  .timelineEntry.left .content {
+    margin-right: auto;
+    margin-left: 60px;
+  }
+
+  .timelineEntry.right .content {
+    margin-left: auto;
+    margin-right: 60px;
+  }
+
+  .connector {
+    width: 60px;
+  }
+
+  .node {
+    width: 14px;
+    height: 14px;
+  }
+
+  .content {
+    gap: 1rem;
+  }
+
+  .polaroid {
+    padding: 1rem 1rem 3rem 1rem;
+  }
+
+  .dateStamp {
+    bottom: 1rem;
+    font-size: 0.7rem;
+  }
+
+  .caption {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .timelineEntry {
+    flex-direction: row;
+    padding-left: 24px;
+  }
+
+  .connector {
+    left: 0;
+    width: 24px;
+  }
+
+  .node {
+    width: 10px;
+    height: 10px;
+  }
+
+  .content {
+    flex: 1;
+    margin-left: 16px;
+  }
+
+  .caption {
+    padding: 0;
+  }
 }

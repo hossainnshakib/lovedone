@@ -56,13 +56,15 @@ export default function PublicRevealClient({ photos, settings }: PublicRevealCli
       />
 
       <div className={styles.photoRoll}>
+        <div className={styles.spine} />
         {displayPhotos.map((photo, index) => (
           <PhotoCard
             key={photo.id || index}
             imageUrl={photo.image_url}
             caption={photo.caption}
             photoDate={photo.photo_date}
-            rotation={index % 2 === 0 ? 'left' : 'right'}
+            side={index % 2 === 0 ? 'left' : 'right'}
+            index={index}
           />
         ))}
       </div>

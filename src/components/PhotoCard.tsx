@@ -7,10 +7,11 @@ interface PhotoCardProps {
   imageUrl: string;
   caption: string | null;
   photoDate: string | null;
-  rotation: 'left' | 'right';
+  side: 'left' | 'right';
+  index: number;
 }
 
-export default function PhotoCard({ imageUrl, caption, photoDate, rotation }: PhotoCardProps) {
+export default function PhotoCard({ imageUrl, caption, photoDate, side, index }: PhotoCardProps) {
   const [isRevealed, setIsRevealed] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -22,7 +23,7 @@ export default function PhotoCard({ imageUrl, caption, photoDate, rotation }: Ph
           observer.disconnect();
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.2 }
     );
 
     if (cardRef.current) {
@@ -43,17 +44,23 @@ export default function PhotoCard({ imageUrl, caption, photoDate, rotation }: Ph
   return (
     <div
       ref={cardRef}
-      className={`${styles.card} ${styles[rotation]} ${isRevealed ? styles.revealed : ''}`}
+      className={`${styles.timelineEntry} ${styles[side]} ${isRevealed ? styles.revealed : ''}`}
     >
-      <div className={styles.polaroid}>
-        <div className={styles.imageContainer}>
-          <img src={imageUrl} alt="" className={styles.image} />
-        </div>
-        <div className={styles.dateStamp}>
-          {formattedDate || 'Photo'}
-        </div>
+      <div className={styles.connector}>
+        <div className={styles.node} />
       </div>
-      {caption && <p className={styles.caption}>{caption}</p>}
+
+      <div className={styles.content}>
+        <div className={styles.polaroid}>
+          <div className={styles.imageContainer}>
+            <img src={imageUrl} alt="" className={styles.image} />
+          </div>
+          <div className={styles.dateStamp}>
+            {formattedDate || 'Photo'}
+          </div>
+        </div>
+        {caption && <p className={styles.caption}>{caption}</p>}
+      </div>
     </div>
   );
 }

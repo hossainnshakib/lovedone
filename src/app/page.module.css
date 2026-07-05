@@ -25,8 +25,31 @@
 }
 
 .photoRoll {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem 1rem;
+  position: relative;
+  padding: 2rem 1rem 2rem 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.spine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--accent) 5%, var(--accent) 95%, transparent);
+  opacity: 0.5;
+}
+
+@media (max-width: 639px) {
+  .spine {
+    left: 11px;
+    transform: none;
+    width: 2px;
+  }
+
+  .photoRoll {
+    padding: 2rem 1rem 2rem 1rem;
+  }
 }
