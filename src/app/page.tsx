@@ -28,6 +28,7 @@ async function getData(): Promise<{ photos: Photo[]; settings: Settings }> {
 
 export default async function PublicReveal() {
   const cookieStore = await cookies();
+  cookieStore.delete(PIN_COOKIE_NAME);
   const isVerified = cookieStore.get(PIN_COOKIE_NAME)?.value === 'verified';
 
   if (!isVerified) {
