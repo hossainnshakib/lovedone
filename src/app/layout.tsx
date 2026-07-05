@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23202A38' width='100' height='100' rx='20'/><rect fill='%23FBF6EC' x='20' y='15' width='60' height='70' rx='4'/><rect fill='%23D98C93' x='35' y='8' width='30' height='12' rx='2' opacity='0.8'/></svg>" />
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%23100C0A' width='100' height='100' rx='20'/><circle cx='50' cy='40' r='20' fill='%23B23A2E' opacity='0.8'/><rect fill='%23EDE6D5' x='25' y='55' width='50' height='35' rx='4'/></svg>" />
       </head>
       <body>{children}</body>
     </html>

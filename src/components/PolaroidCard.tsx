@@ -7,25 +7,24 @@ interface PolaroidCardProps {
   imageUrl: string;
   caption: string | null;
   index: number;
+  size: 'large' | 'medium';
+  tilt: 'a' | 'b';
+  alignRight?: boolean;
 }
 
-const TAPE_COLORS = ['rose', 'mustard'] as const;
-type TapeColor = typeof TAPE_COLORS[number];
-
-export default function PolaroidCard({ imageUrl, caption, index }: PolaroidCardProps) {
+export default function PolaroidCard({ imageUrl, caption, index, size, tilt, alignRight }: PolaroidCardProps) {
   const [isRevealed, setIsRevealed] = useState(false);
-  const [isFlipped, setIsFlipped] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => setIsRevealed(true), 100 + index * 80);
+          setTimeout(() => setIsRevealed(true), index * 100);
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.15 }
     );
 
     if (cardRef.current) {
@@ -35,40 +34,32 @@ export default function PolaroidCard({ imageUrl, caption, index }: PolaroidCardP
     return () => observer.disconnect();
   }, [index]);
 
-  const toggleFlip = () => setIsFlipped(f => !f);
-
-  const tapeColor: TapeColor = TAPE_COLORS[index % 2];
-  const rotation = index % 2 === 0 ? -3.5 + index * 0.8 : 3.2 - index * 0.6;
-
   return (
     <div
       ref={cardRef}
-      className={`${styles.wrapper} ${isRevealed ? styles.inView : ''}`}
-      style={{ '--rotation': `${rotation}deg` } as React.CSSProperties}
+      className={`
+        ${styles.frame}
+        ${styles[`size_${size}`]}
+        ${styles[`tilt_${tilt}`]}
+        ${alignRight ? styles.right : ''}
+        ${isRevealed ? styles.inView : ''}
+      `}
     >
-      <div
-        className={`${styles.flipCard} ${isFlipped ? styles.flipped : ''}`}
-        onClick={toggleFlip}
-      >
-        <div className={styles.front}>
-          <div className={`${styles.tape} ${styles[`tape_${tapeColor}`]}`} />
+      <span className={styles.frameNumber}>
+        FRAME {String(index + 1).padStart(3, '0')}
+      </span>
 
-          <div className={styles.polaroid}>
-            <img src={imageUrl} alt="" className={styles.photo} />
-            <p className={styles.flipHint}>tap to flip ↻</p>
-          </div>
-        </div>
+      <div className={styles.pin} />
 
-        <div className={styles.back}>
-          <div className={`${styles.tape} ${styles[`tape_${tapeColor}`]}`} />
-
-          <div className={styles.polaroidBack}>
-            <p className={styles.backNote}>
-              {caption || 'A moment worth keeping.'}
-            </p>
-          </div>
+      <div className={styles.print}>
+        <div className={styles.photoWell}>
+          <img src={imageUrl} alt="" className={styles.photo} />
         </div>
       </div>
+
+      {caption && size === 'large' && (
+        <p className={styles.greaseNote}>{caption}</p>
+      )}
     </div>
   );
 }

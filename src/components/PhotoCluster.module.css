@@ -1,0 +1,103 @@
+.cluster {
+  display: flex;
+  gap: 14px;
+  align-items: flex-end;
+  margin: 64px 0;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
+}
+
+.cluster.inView {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cluster.alignLeft {
+  align-self: flex-start;
+  margin-left: 1%;
+}
+
+.cluster.alignRight {
+  align-self: flex-end;
+  margin-right: 1%;
+}
+
+.clusterItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pin {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px 3px 8px 8px;
+  background: var(--amber-pin);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  margin-bottom: -7px;
+  z-index: 3;
+  position: relative;
+}
+
+.print {
+  background: var(--print);
+  padding: 8px 8px 28px 8px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.5);
+}
+
+.print img {
+  display: block;
+  max-width: min(38vw, 220px);
+  height: auto;
+}
+
+.print.tilt0 {
+  transform: rotate(-3deg);
+}
+
+.print.tilt1 {
+  transform: rotate(2deg);
+}
+
+.print.tilt2 {
+  transform: rotate(-1.4deg);
+}
+
+.photoWell {
+  overflow: hidden;
+  background: #e8e2d0;
+}
+
+.photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: grayscale(1) brightness(1.5) contrast(0.7);
+  opacity: 0.35;
+  transition: filter 2.2s cubic-bezier(0.2, 0.6, 0.2, 1), opacity 2.2s cubic-bezier(0.2, 0.6, 0.2, 1);
+}
+
+.cluster.inView .photo {
+  filter: grayscale(0) brightness(1) contrast(1);
+  opacity: 1;
+}
+
+@media (max-width: 640px) {
+  .cluster {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 48px 0;
+  }
+
+  .cluster.alignLeft,
+  .cluster.alignRight {
+    align-self: center;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .print img {
+    max-width: 42vw;
+  }
+}

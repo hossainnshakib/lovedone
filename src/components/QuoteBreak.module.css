@@ -1,0 +1,29 @@
+.quoteBreak {
+  margin: 90px 0;
+  text-align: center;
+  padding: 0 10px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.quoteBreak.inView {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.quoteBreak p {
+  font-family: var(--font-hand);
+  font-weight: 600;
+  font-size: clamp(26px, 5vw, 38px);
+  color: var(--safelight-bright);
+  line-height: 1.35;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+  .quoteBreak {
+    margin: 60px 0;
+  }
+}

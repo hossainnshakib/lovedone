@@ -1,132 +1,127 @@
-.wrapper {
-  break-inside: avoid;
-  margin-bottom: 2.5rem;
+.frame {
+  position: relative;
+  margin: 64px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   opacity: 0;
-  transform: translateY(24px) rotate(var(--rotation, 0deg));
-  transition: opacity 0.75s ease-out, transform 0.75s ease-out;
+  transform: translateY(30px);
+  transition: opacity 0.9s ease, transform 0.9s ease;
 }
 
-.wrapper.inView {
+.frame.inView {
   opacity: 1;
-  transform: translateY(0) rotate(var(--rotation, 0deg));
+  transform: translateY(0);
 }
 
-.flipCard {
+.frame.sizeLarge {
+  align-self: center;
+}
+
+.frame.sizeLarge .print {
+  max-width: min(80vw, 460px);
+}
+
+.frame.sizeMedium {
+  align-self: flex-start;
+  margin-left: 2%;
+}
+
+.frame.sizeMedium.right {
+  align-self: flex-end;
+}
+
+.frame.sizeMedium .print {
+  max-width: min(62vw, 340px);
+}
+
+.pin {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px 3px 8px 8px;
+  background: var(--amber-pin);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  margin-bottom: -7px;
+  z-index: 3;
   position: relative;
-  cursor: pointer;
-  transform-style: preserve-3d;
-  transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
 }
 
-.flipCard.flipped {
-  transform: rotateY(180deg);
+.print {
+  background: var(--print);
+  padding: 10px 10px 34px 10px;
+  box-shadow: 0 16px 34px rgba(0,0,0,0.55);
 }
 
-.front,
-.back {
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+.frame.tiltA .print {
+  transform: rotate(-2.2deg);
 }
 
-.back {
-  position: absolute;
-  inset: 0;
-  transform: rotateY(180deg);
+.frame.tiltB .print {
+  transform: rotate(1.6deg);
 }
 
-/* washi tape */
-.tape {
-  position: absolute;
-  width: 56px;
-  height: 22px;
-  border-radius: 2px;
-  opacity: 0.9;
-  z-index: 2;
-  transform: rotate(-8deg);
-  pointer-events: none;
-}
-
-.tape_rose {
-  background: linear-gradient(135deg, var(--washi-rose) 0%, #e09da5 100%);
-}
-
-.tape_mustard {
-  background: linear-gradient(135deg, var(--washi-mustard) 0%, #f0b84a 100%);
-}
-
-/* front face */
-.polaroid {
-  background: var(--paper);
-  padding: 0.6rem 0.6rem 2.8rem 0.6rem;
-  box-shadow: 0 12px 48px rgba(0,0,0,0.55), 0 4px 12px rgba(0,0,0,0.3);
-  position: relative;
-  transition: box-shadow 0.35s ease, transform 0.35s ease;
-}
-
-.flipCard:not(.flipped):hover .polaroid {
-  box-shadow: 0 20px 60px rgba(0,0,0,0.65), 0 8px 20px rgba(0,0,0,0.4);
-  transform: translateY(-3px) rotate(0deg) !important;
+/* photo development effect - grayscale fades to color */
+.photoWell {
+  overflow: hidden;
+  background: #e8e2d0;
 }
 
 .photo {
   display: block;
-  width: auto;
+  width: 100%;
   height: auto;
-  max-width: 100%;
-  max-height: 520px;
-  object-fit: contain;
-  background: #1a1a1a;
+  filter: grayscale(1) brightness(1.5) contrast(0.7);
+  opacity: 0.35;
+  transition: filter 2.2s cubic-bezier(0.2, 0.6, 0.2, 1), opacity 2.2s cubic-bezier(0.2, 0.6, 0.2, 1);
 }
 
-.flipHint {
+.frame.inView .photo {
+  filter: grayscale(0) brightness(1) contrast(1);
+  opacity: 1;
+}
+
+.frameNumber {
   position: absolute;
-  bottom: 0.85rem;
-  left: 1rem;
+  top: -22px;
+  left: 2px;
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: 10px;
   letter-spacing: 0.08em;
-  color: rgba(42,36,32,0.35);
-  text-transform: uppercase;
-  pointer-events: none;
+  color: var(--ghost);
+  opacity: 0.6;
 }
 
-/* back face */
-.polaroidBack {
-  background: var(--paper);
-  padding: 1.2rem 1rem 2.8rem 1rem;
-  box-shadow: 0 12px 48px rgba(0,0,0,0.55), 0 4px 12px rgba(0,0,0,0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 220px;
-}
-
-.backNote {
+.greaseNote {
   font-family: var(--font-hand);
-  font-size: 1.15rem;
-  font-weight: 400;
-  color: var(--charcoal);
-  line-height: 1.65;
+  font-size: 21px;
+  color: var(--ghost);
+  margin-top: 14px;
+  max-width: 280px;
   text-align: center;
-  padding: 0 0.5rem;
+  line-height: 1.4;
 }
 
-@media (max-width: 639px) {
-  .wrapper {
-    --rotation: 0deg !important;
-    margin-bottom: 1.75rem;
+@media (max-width: 640px) {
+  .frame.sizeMedium {
+    margin-left: 0;
+    align-self: center;
   }
 
-  .photo {
-    max-height: 380px;
+  .frame.sizeMedium.right {
+    align-self: center;
   }
 
-  .tape {
-    width: 44px;
-    height: 18px;
+  .frame.tiltA .print,
+  .frame.tiltB .print {
+    transform: rotate(-1deg);
   }
 
-  .backNote {
-    font-size: 1.05rem;
+  .frame {
+    margin: 48px 0;
+  }
+
+  .frame.sizeLarge .print,
+  .frame.sizeMedium .print {
+    max-width: min(88vw, 400px);
   }
 }
