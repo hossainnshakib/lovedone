@@ -6,12 +6,10 @@ import styles from './PhotoCard.module.css';
 interface PhotoCardProps {
   imageUrl: string;
   caption: string | null;
-  photoDate: string | null;
-  side: 'left' | 'right';
-  index: number;
+  rotation: 'left' | 'right';
 }
 
-export default function PhotoCard({ imageUrl, caption, photoDate, side, index }: PhotoCardProps) {
+export default function PhotoCard({ imageUrl, caption, rotation }: PhotoCardProps) {
   const [isRevealed, setIsRevealed] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -33,34 +31,15 @@ export default function PhotoCard({ imageUrl, caption, photoDate, side, index }:
     return () => observer.disconnect();
   }, []);
 
-  const formattedDate = photoDate
-    ? new Date(photoDate).toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: 'numeric',
-      })
-    : null;
-
   return (
     <div
       ref={cardRef}
-      className={`${styles.timelineEntry} ${styles[side]} ${isRevealed ? styles.revealed : ''}`}
+      className={`${styles.card} ${styles[rotation]} ${isRevealed ? styles.revealed : ''}`}
     >
-      <div className={styles.connector}>
-        <div className={styles.node} />
+      <div className={styles.polaroid}>
+        <img src={imageUrl} alt="" className={styles.image} />
       </div>
-
-      <div className={styles.content}>
-        <div className={styles.polaroid}>
-          <div className={styles.imageContainer}>
-            <img src={imageUrl} alt="" className={styles.image} />
-          </div>
-          <div className={styles.dateStamp}>
-            {formattedDate || 'Photo'}
-          </div>
-        </div>
-        {caption && <p className={styles.caption}>{caption}</p>}
-      </div>
+      {caption && <p className={styles.caption}>{caption}</p>}
     </div>
   );
 }

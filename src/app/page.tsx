@@ -1,8 +1,16 @@
+import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase';
 import { Photo, Settings } from '@/lib/types';
+import { PIN_COOKIE_NAME } from '@/lib/constants';
 import PublicRevealClient from './PublicRevealClient';
 
-export const dynamic = 'force-dynamic';
+const DEFAULT_SETTINGS: Settings = {
+  id: 1,
+  recipient_label: 'For You',
+  intro_message: 'A collection of moments, waiting to be seen.',
+  closing_message: 'The end.',
+  updated_at: new Date().toISOString(),
+};
 
 async function getData(): Promise<{ photos: Photo[]; settings: Settings }> {
   const supabase = createServerClient();
@@ -12,20 +20,22 @@ async function getData(): Promise<{ photos: Photo[]; settings: Settings }> {
     supabase.from('settings').select('*').eq('id', 1).single(),
   ]);
 
-  const photos = photosResult.data || [];
-  const settings = settingsResult.data || {
-    id: 1,
-    recipient_label: 'For You',
-    intro_message: 'A collection of moments, waiting to be seen.',
-    closing_message: 'The end.',
-    updated_at: new Date().toISOString(),
+  return {
+    photos: photosResult.data || [],
+    settings: settingsResult.data || DEFAULT_SETTINGS,
   };
-
-  return { photos, settings };
 }
 
 export default async function PublicReveal() {
-  const { photos, settings } = await getData();
+  const cookieStore = await cookies();
+  const isVerified = cookieStore.get(PIN_COOKIE_NAME)?.value === 'verified';
 
-  return <PublicRevealClient photos={photos} settings={settings} />;
+  if (!isVerified) {
+    return (
+      <PublicRevealClient photos={[]} settings={DEFAULT_SETTINGS} isVerified={false} />
+    );
+  }
+
+  const { photos, settings } = await getData();
+  return <PublicRevealClient photos={photos} settings={settings} isVerified={true} />;
 }

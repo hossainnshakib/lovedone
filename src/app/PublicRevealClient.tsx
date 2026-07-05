@@ -1,29 +1,22 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Photo, Settings } from '@/lib/types';
 import GalleryGrid from '@/components/GalleryGrid';
+import LockScreen from '@/components/LockScreen';
 import styles from './page.module.css';
 
 interface PublicRevealClientProps {
   photos: Photo[];
   settings: Settings;
+  isVerified: boolean;
 }
 
-export default function PublicRevealClient({ photos, settings }: PublicRevealClientProps) {
-  const [loading, setLoading] = useState(true);
+export default function PublicRevealClient({ photos, settings, isVerified }: PublicRevealClientProps) {
+  const router = useRouter();
 
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 100);
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (loading) {
-    return (
-      <div className={styles.loading}>
-        <div className={styles.loadingSpinner} />
-      </div>
-    );
+  if (!isVerified) {
+    return <LockScreen onUnlock={() => router.refresh()} />;
   }
 
   const pullQuote = photos[3]?.caption || photos[0]?.caption || 'Some moments just stay with you.';
