@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
     }
 
     const cookieStore = await cookies();
-    cookieStore.set(PIN_COOKIE_NAME, 'verified', {
+    cookieStore.set(PIN_COOKIE_NAME, `verified:${Date.now()}`, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',

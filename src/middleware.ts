@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ADMIN_COOKIE_NAME } from '@/lib/constants';
+import { ADMIN_COOKIE_NAME, PIN_COOKIE_NAME } from '@/lib/constants';
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -21,11 +21,24 @@ export function middleware(request: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  return NextResponse.next();
+  const response = NextResponse.next();
+
+  if (pathname === '/') {
+    const pinCookie = request.cookies.get(PIN_COOKIE_NAME);
+    if (pinCookie) {
+      const [, timestamp] = pinCookie.value.split(':');
+      if (timestamp && Date.now() - parseInt(timestamp) > 3 * 60 * 1000) {
+        response.cookies.delete(PIN_COOKIE_NAME);
+      }
+    }
+  }
+
+  return response;
 }
 
 export const config = {
   matcher: [
+    '/',
     '/admin/photos',
     '/admin/settings',
     '/api/photos/:path*',

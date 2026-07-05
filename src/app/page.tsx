@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { cookies } from 'next/headers';
 import { createServerClient } from '@/lib/supabase';
 import { Photo, Settings } from '@/lib/types';
@@ -28,7 +30,12 @@ async function getData() {
 
 export default async function PublicReveal() {
   const cookieStore = await cookies();
-  const isVerified = cookieStore.get(PIN_COOKIE_NAME)?.value === 'verified';
+  const pinCookie = cookieStore.get(PIN_COOKIE_NAME);
+  let isVerified = false;
+  if (pinCookie) {
+    const [, timestamp] = pinCookie.value.split(':');
+    isVerified = !!timestamp && Date.now() - parseInt(timestamp) <= 3 * 60 * 1000;
+  }
 
   if (!isVerified) {
     return (
