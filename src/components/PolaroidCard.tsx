@@ -57,7 +57,7 @@ export default function PolaroidCard({ imageUrl, caption, index, size, tilt, ali
         </div>
       </div>
 
-      {caption && size === 'large' && (
+      {caption && (
         <p className={styles.greaseNote}>{caption}</p>
       )}
     </div>

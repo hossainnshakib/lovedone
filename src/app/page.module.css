@@ -112,7 +112,7 @@
 }
 
 .heroSub {
-  font-family: var(--font-hand);
+  font-family: var(--font-hand), "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
   font-size: 24px;
   color: var(--ghost);
   max-width: 380px;
@@ -180,7 +180,7 @@
 }
 
 .footerSign {
-  font-family: var(--font-hand);
+  font-family: var(--font-hand), "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
   font-size: 19px;
   color: var(--ghost);
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Caveat:wght@500;600;700&family=Courier+Prime:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=DM+Sans:wght@400;500&family=Courier+Prime:wght@400;700&display=swap');
 
 :root {
   --void: #100C0A;
@@ -10,7 +10,7 @@
   --ink: #241F1A;
   --ghost: rgba(237,230,213,0.55);
   --font-display: 'Fraunces', serif;
-  --font-hand: 'Caveat', cursive;
+  --font-hand: 'DM Sans', sans-serif;
   --font-mono: 'Courier Prime', monospace;
 }
 

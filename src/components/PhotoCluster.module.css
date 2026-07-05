@@ -42,13 +42,13 @@
 
 .print {
   background: var(--print);
-  padding: 8px 8px 28px 8px;
+  padding: 6px 6px 20px 6px;
   box-shadow: 0 12px 28px rgba(0,0,0,0.5);
 }
 
 .print img {
   display: block;
-  max-width: min(38vw, 220px);
+  max-width: min(30vw, 180px);
   height: auto;
 }
 
@@ -98,6 +98,6 @@
   }
 
   .print img {
-    max-width: 42vw;
+    max-width: 32vw !important;
   }
 }

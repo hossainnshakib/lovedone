@@ -100,6 +100,37 @@ export async function PUT(request: NextRequest) {
   }
 }
 
+export async function PATCH(request: NextRequest) {
+  try {
+    const supabase = createServerClient();
+    const { captions } = await request.json();
+
+    if (!Array.isArray(captions)) {
+      return NextResponse.json({ error: 'captions must be an array' }, { status: 400 });
+    }
+
+    const { data: photos, error: fetchError } = await supabase
+      .from('photos')
+      .select('id')
+      .order('order_index', { ascending: true });
+
+    if (fetchError) throw fetchError;
+
+    for (let i = 0; i < photos.length; i++) {
+      if (captions[i] !== undefined) {
+        await supabase
+          .from('photos')
+          .update({ caption: captions[i] })
+          .eq('id', photos[i].id);
+      }
+    }
+
+    return NextResponse.json({ success: true });
+  } catch {
+    return NextResponse.json({ error: 'Failed to batch update captions' }, { status: 500 });
+  }
+}
+
 export async function DELETE(request: NextRequest) {
   try {
     const supabase = createServerClient();

@@ -29,7 +29,6 @@ export default function PublicRevealClient({ photos, settings, isVerified }: Pub
       <div className={styles.wrap}>
         <section className={styles.hero}>
           <div className={styles.pilot} />
-          <div className={styles.eyebrow}>Developing — do not open</div>
           <h1 className={styles.title}>
             {settings.recipient_label.split(' ').map((word, i) =>
               i === settings.recipient_label.split(' ').length - 1
@@ -52,7 +51,7 @@ export default function PublicRevealClient({ photos, settings, isVerified }: Pub
             <path d="M9 20h6M10 17h4M10 20l-.5 2h5l-.5-2"/>
           </svg>
           <p className={styles.footerLine}>{settings.closing_message}</p>
-          <div className={styles.footerSign}>— developed with care</div>
+          <div className={styles.footerSign}>— made with love ❤️</div>
         </footer>
       </div>
     </main>

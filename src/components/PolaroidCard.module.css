@@ -1,6 +1,6 @@
 .frame {
   position: relative;
-  margin: 64px 0;
+  margin: 48px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,7 +19,7 @@
 }
 
 .frame.sizeLarge .print {
-  max-width: min(80vw, 460px);
+  max-width: min(70vw, 280px);
 }
 
 .frame.sizeMedium {
@@ -32,35 +32,34 @@
 }
 
 .frame.sizeMedium .print {
-  max-width: min(62vw, 340px);
+  max-width: min(45vw, 220px);
 }
 
 .pin {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
   border-radius: 3px 3px 8px 8px;
   background: var(--amber-pin);
   box-shadow: 0 2px 4px rgba(0,0,0,0.4);
-  margin-bottom: -7px;
+  margin-bottom: -6px;
   z-index: 3;
   position: relative;
 }
 
 .print {
   background: var(--print);
-  padding: 10px 10px 34px 10px;
-  box-shadow: 0 16px 34px rgba(0,0,0,0.55);
+  padding: 6px 6px 20px 6px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.5);
 }
 
 .frame.tiltA .print {
-  transform: rotate(-2.2deg);
+  transform: rotate(-2deg);
 }
 
 .frame.tiltB .print {
-  transform: rotate(1.6deg);
+  transform: rotate(1.4deg);
 }
 
-/* photo development effect - grayscale fades to color */
 .photoWell {
   overflow: hidden;
   background: #e8e2d0;
@@ -82,26 +81,34 @@
 
 .frameNumber {
   position: absolute;
-  top: -22px;
+  top: -20px;
   left: 2px;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9px;
   letter-spacing: 0.08em;
   color: var(--ghost);
   opacity: 0.6;
 }
 
 .greaseNote {
-  font-family: var(--font-hand);
-  font-size: 21px;
+  font-family: var(--font-hand), "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 15px;
   color: var(--ghost);
-  margin-top: 14px;
-  max-width: 280px;
+  margin-top: 12px;
+  max-width: 260px;
   text-align: center;
   line-height: 1.4;
 }
 
 @media (max-width: 640px) {
+  .frame {
+    margin: 28px 0;
+  }
+
+  .frame.sizeLarge {
+    align-self: center;
+  }
+
   .frame.sizeMedium {
     margin-left: 0;
     align-self: center;
@@ -116,12 +123,30 @@
     transform: rotate(-1deg);
   }
 
-  .frame {
-    margin: 48px 0;
+  .frame.sizeLarge .print {
+    max-width: min(68vw, 180px) !important;
   }
 
-  .frame.sizeLarge .print,
   .frame.sizeMedium .print {
-    max-width: min(88vw, 400px);
+    max-width: min(45vw, 120px) !important;
+  }
+
+  .greaseNote {
+    font-size: 12px;
+    max-width: 160px;
+  }
+
+  .print {
+    padding: 5px 5px 18px 5px;
+  }
+
+  .pin {
+    width: 9px;
+    height: 9px;
+  }
+
+  .frameNumber {
+    top: -16px;
+    font-size: 8px;
   }
 }

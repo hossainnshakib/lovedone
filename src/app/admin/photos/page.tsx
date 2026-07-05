@@ -12,7 +12,6 @@ export default function AdminPhotos() {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const [editingCaption, setEditingCaption] = useState('');
   const [editingNote, setEditingNote] = useState('');
-  const [generatingCaption, setGeneratingCaption] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
@@ -78,31 +77,6 @@ export default function AdminPhotos() {
     setSelectedPhoto(photo);
     setEditingCaption(photo.caption || '');
     setEditingNote(photo.context_note || '');
-  };
-
-  const generateCaption = async () => {
-    if (!selectedPhoto) return;
-    setGeneratingCaption(true);
-
-    try {
-      const res = await fetch('/api/generate-caption', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          imageUrl: selectedPhoto.image_url,
-          contextNote: editingNote,
-        }),
-      });
-
-      const data = await res.json();
-      if (data.caption) {
-        setEditingCaption(data.caption);
-      }
-    } catch (error) {
-      console.error('Caption generation error:', error);
-    } finally {
-      setGeneratingCaption(false);
-    }
   };
 
   const savePhoto = async () => {
@@ -218,16 +192,7 @@ export default function AdminPhotos() {
               </div>
 
               <div className={styles.field}>
-                <div className={styles.captionHeader}>
-                  <label className={styles.label}>Caption</label>
-                  <button
-                    onClick={generateCaption}
-                    className={styles.generateBtn}
-                    disabled={generatingCaption}
-                  >
-                    {generatingCaption ? 'Generating...' : 'Generate with AI'}
-                  </button>
-                </div>
+                <label className={styles.label}>Caption</label>
                 <textarea
                   value={editingCaption}
                   onChange={e => setEditingCaption(e.target.value)}
