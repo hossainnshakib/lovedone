@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import Anthropic from '@anthropic-ai/sdk';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export async function POST(request: NextRequest) {
   try {
@@ -9,16 +9,20 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Image URL is required' }, { status: 400 });
     }
 
-    const apiKey = process.env.ANTHROPIC_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return NextResponse.json({ error: 'Anthropic API key not configured' }, { status: 500 });
+      return NextResponse.json({ error: 'Gemini API key not configured' }, { status: 500 });
     }
 
-    const anthropic = new Anthropic({ apiKey });
+    const genAI = new GoogleGenerativeAI(apiKey);
 
     const imageResponse = await fetch(imageUrl);
     const arrayBuffer = await imageResponse.arrayBuffer();
-    const base64Image = Buffer.from(arrayBuffer).toString('base64');
+    const imageBuffer = Buffer.from(arrayBuffer);
+    const mimeType = imageResponse.headers.get('content-type') || 'image/jpeg';
+    const base64Image = imageBuffer.toString('base64');
+
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
     const prompt = `Look at this photograph. The person who shared it provided this context or note about it: "${contextNote || 'No additional context provided.'}"
 
@@ -31,35 +35,17 @@ Write a short caption (1-2 sentences) for this photo. The caption should be:
 
 Keep it concise and meaningful.`;
 
-    const message = await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-20241022',
-      max_tokens: 150,
-      messages: [
-        {
-          role: 'user',
-          content: [
-            {
-              type: 'image',
-              source: {
-                type: 'base64',
-                media_type: 'image/jpeg',
-                data: base64Image,
-              },
-            },
-            {
-              type: 'text',
-              text: prompt,
-            },
-          ],
-        },
-      ],
-    });
+    const imagePart = {
+      inlineData: {
+        data: base64Image,
+        mimeType,
+      },
+    };
 
-    const caption = message.content[0].type === 'text'
-      ? message.content[0].text.trim()
-      : 'Could not generate caption.';
+    const result = await model.generateContent([imagePart, prompt]);
+    const caption = result.response.text().trim();
 
-    return NextResponse.json({ caption });
+    return NextResponse.json({ caption: caption || 'Could not generate caption.' });
   } catch (error) {
     console.error('Caption generation error:', error);
     return NextResponse.json({ error: 'Failed to generate caption' }, { status: 500 });
