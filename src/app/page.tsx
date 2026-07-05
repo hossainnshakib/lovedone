@@ -2,6 +2,8 @@ import { createServerClient } from '@/lib/supabase';
 import { Photo, Settings } from '@/lib/types';
 import PublicRevealClient from './PublicRevealClient';
 
+export const dynamic = 'force-dynamic';
+
 async function getData(): Promise<{ photos: Photo[]; settings: Settings }> {
   const supabase = createServerClient();
 

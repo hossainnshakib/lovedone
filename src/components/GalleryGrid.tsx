@@ -65,7 +65,6 @@ export default function GalleryGrid({ photos, pullQuote }: GalleryGridProps) {
               <figure>
                 <img src={photo.image_url} alt="" />
                 <figcaption>
-                  <span className={styles.capDate}>{formatDate(photo.photo_date)}</span>
                   <p className={styles.capText}>{photo.caption || 'Photo'}</p>
                 </figcaption>
               </figure>

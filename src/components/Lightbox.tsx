@@ -28,12 +28,6 @@ export default function Lightbox({ photo, onClose }: LightboxProps) {
 
   if (!photo) return null;
 
-  const formatDate = (dateStr: string | null) => {
-    if (!dateStr) return '';
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-  };
-
   return (
     <div
       className={`${styles.lightbox} ${photo ? styles.open : ''}`}
@@ -45,7 +39,6 @@ export default function Lightbox({ photo, onClose }: LightboxProps) {
       <div className={styles.inner}>
         <img src={photo.image_url} alt="" />
         <div className={styles.caption}>
-          <span className={styles.date}>{formatDate(photo.photo_date)}</span>
           <p className={styles.text}>{photo.caption || 'Photo'}</p>
         </div>
       </div>
