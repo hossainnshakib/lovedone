@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,15 +13,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Gemini API key not configured' }, { status: 500 });
     }
 
-    const genAI = new GoogleGenerativeAI(apiKey);
-
     const imageResponse = await fetch(imageUrl);
     const arrayBuffer = await imageResponse.arrayBuffer();
     const imageBuffer = Buffer.from(arrayBuffer);
     const mimeType = imageResponse.headers.get('content-type') || 'image/jpeg';
     const base64Image = imageBuffer.toString('base64');
-
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
     const prompt = `Look at this photograph. The person who shared it provided this context or note about it: "${contextNote || 'No additional context provided.'}"
 
@@ -35,17 +30,39 @@ Write a short caption (1-2 sentences) for this photo. The caption should be:
 
 Keep it concise and meaningful.`;
 
-    const imagePart = {
-      inlineData: {
-        data: base64Image,
-        mimeType,
-      },
+    const body = {
+      contents: [
+        {
+          parts: [
+            { inlineData: { mimeType, data: base64Image } },
+            { text: prompt },
+          ],
+        },
+      ],
     };
 
-    const result = await model.generateContent([imagePart, prompt]);
-    const caption = result.response.text().trim();
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      }
+    );
 
-    return NextResponse.json({ caption: caption || 'Could not generate caption.' });
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(`Gemini API error: ${res.status} - ${errorText}`);
+    }
+
+    const data = await res.json();
+    const caption = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+
+    if (!caption) {
+      throw new Error('No caption in response');
+    }
+
+    return NextResponse.json({ caption });
   } catch (error) {
     console.error('Caption generation error:', error);
     return NextResponse.json({ error: 'Failed to generate caption' }, { status: 500 });

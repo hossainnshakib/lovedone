@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You — Gallery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Work+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F4EE;
+    --paper-alt:#EFEAE0;
+    --ink:#211D19;
+    --ink-soft:#5B564D;
+    --forest:#3B5D50;
+    --ochre:#B9902F;
+    --line:rgba(33,29,25,0.10);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+  }
+
+  header{
+    max-width:1100px; margin:0 auto;
+    padding:9vh 24px 6vh;
+    text-align:center;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:11px; letter-spacing:0.25em; text-transform:uppercase;
+    color:var(--ochre); margin-bottom:20px;
+  }
+  h1{
+    font-family:'Fraunces', serif; font-weight:500;
+    font-size:clamp(32px, 5.5vw, 56px); line-height:1.1;
+    margin-bottom:16px;
+  }
+  h1 em{ font-style:italic; font-weight:400; color:var(--forest); }
+  .deck{
+    font-size:16px; color:var(--ink-soft); max-width:480px; margin:0 auto;
+    line-height:1.6;
+  }
+
+  /* ---- masonry gallery ---- */
+  .gallery{
+    max-width:1100px; margin:0 auto; padding:0 20px 12vh;
+    column-count:3; column-gap:20px;
+  }
+  @media (max-width:900px){ .gallery{ column-count:2; } }
+  @media (max-width:560px){ .gallery{ column-count:1; } }
+
+  figure{
+    break-inside:avoid; margin-bottom:20px;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:3px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:transform 0.35s ease, box-shadow 0.35s ease;
+    opacity:0; transform:translateY(18px);
+  }
+  figure.in-view{ opacity:1; transform:translateY(0); transition:opacity 0.8s ease, transform 0.8s ease; }
+  figure:hover{ transform:translateY(-4px); box-shadow:0 18px 34px -18px rgba(33,29,25,0.25); }
+
+  figure img{ display:block; width:100%; height:auto; }
+
+  figcaption{ padding:16px 18px 20px; }
+  .cap-date{
+    font-family:'JetBrains Mono', monospace; font-size:10px;
+    letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-soft);
+    margin-bottom:8px; display:block;
+  }
+  .cap-text{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:400;
+    font-size:15px; line-height:1.55; color:var(--ink);
+  }
+
+  /* editorial pull-quote block interspersed in the grid */
+  .pull{
+    break-inside:avoid; margin-bottom:20px;
+    display:flex; align-items:center; justify-content:center;
+    padding:30px 22px;
+    border-left:2px solid var(--forest);
+    background:var(--paper-alt);
+  }
+  .pull p{
+    font-family:'Fraunces', serif; font-style:italic; font-weight:400;
+    font-size:18px; line-height:1.6; color:var(--forest);
+  }
+
+  footer{
+    max-width:600px; margin:0 auto; padding:8vh 24px 12vh; text-align:center;
+    border-top:1px solid var(--line);
+  }
+  footer .eyebrow{ margin-bottom:18px; }
+  footer p{
+    font-family:'Fraunces', serif; font-size:clamp(18px,3vw,22px); line-height:1.7;
+    color:var(--ink); margin-bottom:8px;
+  }
+  footer .sign{ margin-top:20px; font-style:italic; color:var(--forest); }
+
+  /* ---- lightbox ---- */
+  .lightbox{
+    position:fixed; inset:0; background:rgba(33,29,25,0.92);
+    display:flex; align-items:center; justify-content:center;
+    padding:40px 20px;
+    opacity:0; pointer-events:none;
+    transition:opacity 0.3s ease;
+    z-index:100;
+  }
+  .lightbox.open{ opacity:1; pointer-events:auto; }
+  .lightbox-inner{ max-width:640px; width:100%; }
+  .lightbox-inner img{
+    width:100%; height:auto; max-height:70vh; object-fit:contain;
+    border-radius:2px; background:#000;
+  }
+  .lightbox-cap{ color:var(--paper); text-align:center; margin-top:20px; }
+  .lightbox-cap .cap-date{ color:rgba(247,244,238,0.6); }
+  .lightbox-cap .cap-text{ color:var(--paper); font-size:17px; }
+  .lb-close{
+    position:absolute; top:24px; right:28px;
+    background:none; border:none; color:var(--paper);
+    font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.1em;
+    cursor:pointer; text-transform:uppercase; opacity:0.7;
+  }
+  .lb-close:hover{ opacity:1; }
+
+  @media (prefers-reduced-motion: reduce){ *{ transition-duration:0.01ms !important; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">A small collection</div>
+  <h1>For <em>You</em></h1>
+  <p class="deck">A few moments worth keeping somewhere nicer than a camera roll. Click any photo for a closer look.</p>
+</header>
+
+<div class="gallery" id="gallery"></div>
+
+<footer>
+  <div class="eyebrow">Before you go</div>
+  <p>These moments meant something, and I wanted you to have them somewhere nicer than a camera roll.</p>
+  <p>Just a small way of saying thank you for being someone I genuinely appreciate.</p>
+  <div class="sign">— made with care</div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose">Close ✕</button>
+  <div class="lightbox-inner">
+    <img id="lbImg" src="" alt="">
+    <div class="lightbox-cap">
+      <span class="cap-date" id="lbDate"></span>
+      <p class="cap-text" id="lbCap"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const photos = [
+    { date:"March 2023", src:"https://picsum.photos/id/64/500/700", caption:"This one always makes me smile when it comes up." },
+    { date:"June 2023", src:"https://picsum.photos/id/91/700/460", caption:"That laugh, right there, is exactly how I remember that day." },
+    { date:"November 2023", src:"https://picsum.photos/id/26/500/750", caption:"Small moment, but it stuck with me more than I expected." },
+    { date:"February 2024", src:"https://picsum.photos/id/48/700/500", caption:"Some pictures just capture a good day better than words can." },
+    { date:"April 2024", src:"https://picsum.photos/id/65/500/650", caption:"Everyone else in the photo, but somehow this is the one I keep coming back to." },
+    { date:"July 2024", src:"https://picsum.photos/id/103/700/480", caption:"Ordinary afternoon, unexpectedly good photo." }
+  ];
+
+  const gallery = document.getElementById('gallery');
+
+  photos.forEach((p, i) => {
+    const fig = document.createElement('figure');
+    fig.innerHTML = `
+      <img src="${p.src}" alt="">
+      <figcaption>
+        <span class="cap-date">${p.date}</span>
+        <p class="cap-text">${p.caption}</p>
+      </figcaption>
+    `;
+    fig.addEventListener('click', () => openLightbox(p));
+    gallery.appendChild(fig);
+
+    // insert an editorial pull-quote block after the 3rd photo
+    if (i === 2) {
+      const pull = document.createElement('div');
+      pull.className = 'pull';
+      pull.innerHTML = `<p>"Some pictures just capture a good day better than words can."</p>`;
+      gallery.appendChild(pull);
+    }
+  });
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
+  }, { threshold:0.15 });
+  document.querySelectorAll('figure').forEach(f => io.observe(f));
+
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbCap = document.getElementById('lbCap');
+  const lbDate = document.getElementById('lbDate');
+
+  function openLightbox(p){
+    lbImg.src = p.src;
+    lbCap.textContent = p.caption;
+    lbDate.textContent = p.date;
+    lightbox.classList.add('open');
+  }
+  document.getElementById('lbClose').addEventListener('click', () => lightbox.classList.remove('open'));
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+</script>
+</body>
+</html>
