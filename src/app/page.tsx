@@ -12,7 +12,7 @@ const DEFAULT_SETTINGS: Settings = {
   updated_at: new Date().toISOString(),
 };
 
-async function getData(): Promise<{ photos: Photo[]; settings: Settings }> {
+async function getData() {
   const supabase = createServerClient();
 
   const [photosResult, settingsResult] = await Promise.all([
