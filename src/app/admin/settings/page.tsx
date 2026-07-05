@@ -87,6 +87,12 @@ export default function AdminSettings() {
       </header>
 
       <main className={styles.main}>
+        <section className={styles.pageHeader}>
+          <p className={styles.eyebrow}>Reveal controls</p>
+          <h1>Gallery settings</h1>
+          <span>Language and pacing for the private issue.</span>
+        </section>
+
         <div className={styles.card}>
           <h1 className={styles.title}>Reveal Settings</h1>
 

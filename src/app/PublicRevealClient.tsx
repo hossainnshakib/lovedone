@@ -20,23 +20,27 @@ export default function PublicRevealClient({ photos, settings, isVerified }: Pub
   }
 
   const pullQuote = photos[4]?.caption || photos[0]?.caption || 'Some moments deserve more than a camera roll.';
+  const featuredPhoto = photos[0];
 
   return (
     <main className={styles.main}>
-      <div className={styles.safelightGlow} />
-      <div className={styles.grainOverlay} />
+      <div className={styles.paperTexture} />
 
       <div className={styles.wrap}>
-        <section className={styles.hero}>
-          <div className={styles.pilot} />
-          <p className={styles.greeting}>Dear {settings.recipient_label} — a little surprise just for you</p>
-          <h1 className={styles.title}>
-            A moment <em>just for you</em>
-          </h1>
-          <p className={styles.heroSub}>{settings.intro_message}</p>
-          <div className={styles.scrollCue}>
-            <div className={styles.scrollLine} />
-            REEL BEGINS
+        <section className={styles.cover}>
+          {featuredPhoto ? (
+            <div className={styles.coverPhotoWrap}>
+              <img src={featuredPhoto.image_url} alt="" className={styles.coverPhoto} />
+            </div>
+          ) : (
+            <div className={styles.emptyHeroImage}>A little surprise</div>
+          )}
+
+          <div className={styles.coverCopy}>
+            <h1 className={styles.editorialTitle}>
+              Dear Sumiya Sehtaz — a little surprise just for you
+            </h1>
+            <p className={styles.heroSub}>{settings.intro_message}</p>
           </div>
         </section>
 
@@ -47,8 +51,9 @@ export default function PublicRevealClient({ photos, settings, isVerified }: Pub
             <circle cx="12" cy="10" r="7"/>
             <path d="M9 20h6M10 17h4M10 20l-.5 2h5l-.5-2"/>
           </svg>
+          <p className={styles.footerLabel}>Closing note</p>
           <p className={styles.footerLine}>{settings.closing_message}</p>
-          <div className={styles.footerSign}>— made with love ❤️</div>
+          <div className={styles.footerCredit}>made with love ❤️</div>
         </footer>
       </div>
     </main>

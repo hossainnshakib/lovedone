@@ -31,3 +31,23 @@
   stroke: var(--accent);
   stroke-width: 1;
 }
+
+.aperture {
+  width: clamp(132px, 34vw, 176px);
+  height: clamp(132px, 34vw, 176px);
+}
+
+.outerRing,
+.innerRing {
+  stroke: #587260;
+}
+
+.blade {
+  fill: #b85f4a;
+  opacity: 0.72;
+}
+
+.center {
+  fill: #f8f3ea;
+  stroke: #587260;
+}

@@ -79,3 +79,92 @@
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+.container {
+  min-height: 100vh;
+  align-items: stretch;
+  background:
+    linear-gradient(135deg, rgba(245, 242, 236, 0.96), rgba(228, 235, 226, 0.92) 48%, rgba(244, 231, 224, 0.94)),
+    #f5f2ec;
+  padding: clamp(18px, 4vw, 42px);
+}
+
+.container::before {
+  content: "Lovedone";
+  position: fixed;
+  left: clamp(20px, 5vw, 56px);
+  top: clamp(18px, 4vw, 44px);
+  font-family: var(--font-display);
+  font-size: clamp(30px, 5vw, 64px);
+  font-weight: 600;
+  color: #101512;
+}
+
+.container::after {
+  content: "Private gallery operations";
+  position: fixed;
+  right: clamp(20px, 5vw, 56px);
+  bottom: clamp(18px, 4vw, 44px);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(24, 32, 27, 0.52);
+}
+
+.loginBox {
+  align-self: center;
+  justify-self: center;
+  width: min(100%, 430px);
+  max-width: none;
+  margin: auto;
+  padding: clamp(28px, 5vw, 46px);
+  text-align: left;
+  border: 1px solid rgba(24, 32, 27, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 252, 247, 0.82);
+  box-shadow: 0 28px 80px rgba(52, 47, 41, 0.14);
+}
+
+.title {
+  margin-bottom: 0.6rem;
+  color: #101512;
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  line-height: 0.98;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin-bottom: 2rem;
+  color: rgba(24, 32, 27, 0.58);
+  line-height: 1.5;
+}
+
+.input {
+  background: #f8f3ea;
+  border-color: rgba(24, 32, 27, 0.16);
+  border-radius: 6px;
+  color: #18201b;
+}
+
+.input:focus {
+  border-color: #587260;
+  box-shadow: 0 0 0 3px rgba(88, 114, 96, 0.16);
+}
+
+.button {
+  background: #18201b;
+  border-radius: 6px;
+  color: #fffaf4;
+}
+
+.error {
+  color: #8a4d45;
+}
+
+@media (max-width: 640px) {
+  .container::before,
+  .container::after {
+    display: none;
+  }
+}

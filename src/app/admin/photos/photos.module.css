@@ -294,3 +294,251 @@
 .deleteBtn:hover {
   background: rgba(184, 101, 74, 0.1);
 }
+
+.container {
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(245, 242, 236, 0.96), rgba(228, 235, 226, 0.92) 48%, rgba(244, 231, 224, 0.94)),
+    #f5f2ec;
+  color: #18201b;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(255, 252, 247, 0.86);
+  border-bottom: 1px solid rgba(24, 32, 27, 0.13);
+  backdrop-filter: blur(18px);
+}
+
+.navLink {
+  color: rgba(24, 32, 27, 0.58);
+}
+
+.navLink:hover {
+  color: #18201b;
+}
+
+.logoutBtn {
+  border-color: rgba(24, 32, 27, 0.16);
+  border-radius: 6px;
+  color: rgba(24, 32, 27, 0.62);
+}
+
+.logoutBtn:hover {
+  border-color: #b85f4a;
+  color: #8a4d45;
+}
+
+.main {
+  width: min(1280px, calc(100% - 36px));
+  max-width: none;
+  padding: clamp(24px, 4vw, 44px) 0;
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  padding: clamp(22px, 4vw, 34px);
+  border: 1px solid rgba(24, 32, 27, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 252, 247, 0.78);
+  box-shadow: 0 22px 70px rgba(52, 47, 41, 0.1);
+}
+
+.pageHeader h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 5.4rem);
+  line-height: 0.95;
+  letter-spacing: 0;
+  color: #101512;
+}
+
+.pageHeader span {
+  display: block;
+  max-width: 560px;
+  margin-top: 12px;
+  color: rgba(24, 32, 27, 0.62);
+  font-family: var(--font-hand), "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  line-height: 1.5;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8a4d45;
+}
+
+.statCard {
+  min-width: 130px;
+  padding: 16px;
+  border-radius: 8px;
+  background: #18201b;
+  color: #fffaf4;
+  text-align: right;
+}
+
+.statCard strong,
+.statCard span {
+  display: block;
+  margin: 0;
+}
+
+.statCard strong {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  line-height: 0.9;
+}
+
+.statCard span {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 250, 244, 0.68);
+}
+
+.toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 18px;
+}
+
+.uploadBtn {
+  background: #18201b;
+  border-radius: 6px;
+  color: #fffaf4;
+  box-shadow: 0 12px 34px rgba(24, 32, 27, 0.18);
+}
+
+.content {
+  grid-template-columns: minmax(0, 1fr) minmax(340px, 400px);
+  align-items: start;
+}
+
+.photoGrid {
+  grid-template-columns: repeat(auto-fill, minmax(152px, 1fr));
+  gap: 14px;
+}
+
+.photoItem {
+  border-radius: 8px;
+  border: 1px solid rgba(24, 32, 27, 0.12);
+  background: rgba(255, 252, 247, 0.7);
+  box-shadow: 0 14px 34px rgba(52, 47, 41, 0.1);
+}
+
+.photoItem:hover {
+  border-color: rgba(88, 114, 96, 0.52);
+}
+
+.photoItem.selected {
+  border-color: #587260;
+  box-shadow: 0 0 0 3px rgba(88, 114, 96, 0.16), 0 18px 42px rgba(52, 47, 41, 0.13);
+}
+
+.orderBadge {
+  background: rgba(24, 32, 27, 0.82);
+  color: #fffaf4;
+}
+
+.emptyText {
+  border: 1px dashed rgba(24, 32, 27, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 252, 247, 0.54);
+  color: rgba(24, 32, 27, 0.58);
+}
+
+.editor {
+  top: 92px;
+  border: 1px solid rgba(24, 32, 27, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 252, 247, 0.86);
+  box-shadow: 0 22px 70px rgba(52, 47, 41, 0.12);
+}
+
+.editorTitle {
+  color: #101512;
+  font-size: 1.45rem;
+  font-weight: 600;
+}
+
+.preview {
+  border-radius: 6px;
+}
+
+.label {
+  color: rgba(24, 32, 27, 0.54);
+}
+
+.textarea,
+.dateInput {
+  background: #f8f3ea;
+  border-color: rgba(24, 32, 27, 0.16);
+  border-radius: 6px;
+  color: #18201b;
+}
+
+.textarea:focus,
+.dateInput:focus {
+  border-color: #587260;
+  box-shadow: 0 0 0 3px rgba(88, 114, 96, 0.14);
+}
+
+.saveBtn {
+  background: #587260;
+  border-radius: 6px;
+  color: #fffaf4;
+}
+
+.deleteBtn {
+  border-color: rgba(184, 95, 74, 0.62);
+  border-radius: 6px;
+  color: #8a4d45;
+}
+
+@media (max-width: 900px) {
+  .pageHeader {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .statCard {
+    text-align: left;
+  }
+
+  .content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    padding: 0.9rem 1rem;
+  }
+
+  .nav {
+    gap: 1rem;
+  }
+
+  .main {
+    width: min(100% - 24px, 1280px);
+  }
+
+  .toolbar {
+    justify-content: stretch;
+  }
+
+  .uploadBtn {
+    width: 100%;
+  }
+}

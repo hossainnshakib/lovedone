@@ -139,6 +139,18 @@ export default function AdminPhotos() {
       </header>
 
       <main className={styles.main}>
+        <section className={styles.pageHeader}>
+          <div>
+            <p className={styles.eyebrow}>Gallery ops</p>
+            <h1>Photo library</h1>
+            <span>The working table for this private issue.</span>
+          </div>
+          <div className={styles.statCard}>
+            <strong>{photos.length}</strong>
+            <span>{photos.length === 1 ? 'frame' : 'frames'}</span>
+          </div>
+        </section>
+
         <div className={styles.toolbar}>
           <input
             ref={fileInputRef}
