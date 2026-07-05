@@ -94,6 +94,15 @@
   50% { opacity: 1; box-shadow: 0 0 20px 8px rgba(232,112,63,0.6); }
 }
 
+.greeting {
+  font-family: var(--font-hand), "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 15px;
+  color: var(--ghost);
+  letter-spacing: 0.01em;
+  opacity: 0;
+  animation: heroFadeUp 0.8s ease-out 0.55s forwards;
+}
+
 .title {
   font-family: var(--font-display);
   font-weight: 600;
@@ -102,7 +111,7 @@
   color: var(--print);
   letter-spacing: -0.01em;
   opacity: 0;
-  animation: heroFadeUp 0.8s ease-out 0.4s forwards;
+  animation: heroFadeUp 0.8s ease-out 0.5s forwards;
 }
 
 @keyframes heroFadeUp {
@@ -123,7 +132,7 @@
   max-width: 360px;
   line-height: 1.5;
   opacity: 0;
-  animation: heroFadeUp 0.8s ease-out 0.65s forwards;
+  animation: heroFadeUp 0.8s ease-out 0.75s forwards;
 }
 
 .scrollCue {
@@ -138,7 +147,7 @@
   align-items: center;
   gap: 8px;
   opacity: 0;
-  animation: heroFadeUp 0.8s ease-out 0.9s forwards;
+  animation: heroFadeUp 0.8s ease-out 1s forwards;
 }
 
 .scrollLine {

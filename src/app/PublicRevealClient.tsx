@@ -29,6 +29,7 @@ export default function PublicRevealClient({ photos, settings, isVerified }: Pub
       <div className={styles.wrap}>
         <section className={styles.hero}>
           <div className={styles.pilot} />
+          <p className={styles.greeting}>Dear {settings.recipient_label} — a little surprise just for you</p>
           <h1 className={styles.title}>
             {settings.recipient_label.split(' ').map((word, i) =>
               i === settings.recipient_label.split(' ').length - 1
