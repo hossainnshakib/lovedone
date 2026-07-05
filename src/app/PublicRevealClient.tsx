@@ -31,11 +31,7 @@ export default function PublicRevealClient({ photos, settings, isVerified }: Pub
           <div className={styles.pilot} />
           <p className={styles.greeting}>Dear {settings.recipient_label} — a little surprise just for you</p>
           <h1 className={styles.title}>
-            {settings.recipient_label.split(' ').map((word, i) =>
-              i === settings.recipient_label.split(' ').length - 1
-                ? <em key={i}>{word}</em>
-                : word + ' '
-            )}
+            A moment <em>just for you</em>
           </h1>
           <p className={styles.heroSub}>{settings.intro_message}</p>
           <div className={styles.scrollCue}>
