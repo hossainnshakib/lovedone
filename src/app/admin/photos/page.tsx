@@ -109,7 +109,7 @@ export default function AdminPhotos() {
     if (!selectedPhoto) return;
 
     try {
-      await fetch('/api/photos', {
+      const res = await fetch('/api/photos', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -119,10 +119,17 @@ export default function AdminPhotos() {
         }),
       });
 
+      if (!res.ok) {
+        const err = await res.json();
+        alert('Failed to save: ' + (err.error || 'Unknown error'));
+        return;
+      }
+
       await fetchPhotos();
       setSelectedPhoto(null);
     } catch (error) {
       console.error('Save error:', error);
+      alert('Save failed. Check console for details.');
     }
   };
 
